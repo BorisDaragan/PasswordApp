@@ -25,7 +25,6 @@ namespace PA.BLL
         {
             Password = new Password();
         }
-
-
+        
     }
 }

@@ -34,7 +34,15 @@ namespace PA.Model
 
         public static bool operator ==(Password a, Password b)
         {
-
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+            
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
             return a.PasswordParts.SequenceEqual(b.PasswordParts);
         }
 
