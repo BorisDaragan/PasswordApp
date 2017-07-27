@@ -20,7 +20,7 @@ namespace PA.UI
     /// </summary>
     public partial class PasswordWindow : Window
     {
-        private PasswordBL password;
+        public PasswordBL password;
 
 
         public PasswordWindow()
@@ -31,20 +31,13 @@ namespace PA.UI
 
         private void PasswordTxtbx_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (this.Title == "! Login changed in main window. Please wait...")
+            try
             {
-                MessageBox.Show("! Login changed in main window. Please wait...");
+                password.Add(PasswordTxtbx.Text);
             }
-            else
-            { 
-                try
-                {
-                    password.Add(PasswordTxtbx.Text);
-                }
-                catch (ArgumentException ex)
-                {
-                    MessageBox.Show(ex.Message + " Password recording finished.");
-                }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + " Password recording finished.");
             }
         }
 

@@ -17,9 +17,27 @@ namespace PA.Model
             Time = time;
         }
 
+
+        public bool Equals(PasswordPart p)
+        {
+            if ((object)p == null)
+            {
+                return false;
+            }
+
+            if (this.Text == p.Text)//&& a.Time == b.Time)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static bool operator ==(PasswordPart a, PasswordPart b)
         {
-            if (a.Text == b.Text )//&& a.Time == b.Time)
+            if (a.Text.Equals( b.Text) )//&& a.Time == b.Time)
             {
                 return true;
             }

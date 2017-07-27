@@ -58,9 +58,13 @@ namespace PA.UI
             foreach (Window window in OwnedWindows)
             {
                 window.Title = "! Login changed in main window. Please wait...";
+                var passWindow = window as PasswordWindow;
+                passWindow.password.ClearEdit();
+                PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
+                PasswordTxtbx.Clear();
+                PasswordTxtbx.TextChanged += PasswordTxtbx_TextChanged;
+                window.Title = "Enter password";
             }
-            password.ClearEdit();
-            PasswordTxtbx.Clear();
         }
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
@@ -72,10 +76,6 @@ namespace PA.UI
             PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
             PasswordTxtbx.Clear();
             PasswordTxtbx.TextChanged += PasswordTxtbx_TextChanged;
-            foreach (Window window in OwnedWindows)
-            {
-                window.Title = "Enter password";
-            }
         }
     }
 }

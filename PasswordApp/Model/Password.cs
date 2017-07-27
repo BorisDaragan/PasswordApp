@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace PA.Model
 {
     public class Password
-    { 
-        
-        public event EventHandler MyEvent;
+    {
+        private DateTime startRecordingPassword;
         private List<PasswordPart> PasswordParts { get; set; }
         private static int maxSize { get; set; }
 
@@ -43,7 +42,24 @@ namespace PA.Model
             {
                 return false;
             }
-            return a.PasswordParts.SequenceEqual(b.PasswordParts);
+            if ((object) a.PasswordParts == null || (object) b.PasswordParts == null)
+            {
+                return false;
+            }
+            if (a.PasswordParts.Count != b.PasswordParts.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < a.PasswordParts.Count; i++)
+            {
+                if (a.PasswordParts[i] != b.PasswordParts[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+            //return a.PasswordParts.SequenceEqual(b.PasswordParts);
         }
 
         public static bool operator !=(Password a, Password b)
