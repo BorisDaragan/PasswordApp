@@ -16,5 +16,22 @@ namespace PA.Model
             Text = new StringBuilder(text);
             Time = time;
         }
+
+        public static bool operator ==(PasswordPart a, PasswordPart b)
+        {
+            if (a.Text == b.Text )//&& a.Time == b.Time)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(PasswordPart a, PasswordPart b)
+        {
+            return !(a == b);
+        }
     }
 }

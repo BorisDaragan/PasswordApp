@@ -8,33 +8,45 @@ using PA.DAL;
 
 namespace PA.BLL
 {
-    public class UserService
+    public class UserBL
     {
         public string Login { get; set; }
         private PasswordBL _password;
         private static UserRepo _userRepo;
         public Password Password { get; set; }
 
-        public UserService()
+        public UserBL()
         {
             
         }
 
-        public UserService(string login, PasswordBL password)
+        public UserBL(string login, Password password)
         {
             this.Login  = login;
-            this._password = password;
+            this.Password = password;
         }
 
-        static UserService()
+        static UserBL()
         {
             _userRepo = new UserRepo();
         }
 
-        public void SaveOrUpdate(User user)
+        public void SaveOrUpdate( )
         {
-            _userRepo.SaveOrUpdatePassword(user);
+            _userRepo.SaveOrUpdatePassword(new User(this.Login, this.Password));
         }
 
+
+        internal bool CheckPassword(Password password)
+        {
+            if (this.Password == password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

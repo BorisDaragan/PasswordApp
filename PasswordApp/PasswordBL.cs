@@ -11,7 +11,6 @@ namespace PA.BLL
     {
         public Password Password { get; set; }
 
-
         public PasswordBL()
         {
             Password = new Password();
@@ -22,13 +21,11 @@ namespace PA.BLL
             Password.AddPart(new PasswordPart(passText, DateTime.Now));
         }
 
-
-
-
         public void ClearEdit()
         {
             Password = new Password();
         }
+
 
     }
 }

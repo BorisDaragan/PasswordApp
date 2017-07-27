@@ -23,21 +23,23 @@ namespace PA.UI
     public partial class MainWindow : Window
     {
         private PasswordBL password;
-        public UserService user;
+        public UserBL user;
         public MainWindow()
         {
             InitializeComponent();
             password = new PasswordBL();
-            user = new UserService();
+            user = new UserBL();
         }
 
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             PasswordWindow passwordWindow = new PasswordWindow();
-            passwordWindow.Show();
             passwordWindow.Owner = this;
+            passwordWindow.Title = "Enter password";
+            passwordWindow.Show();
         }
+
 
         private void PasswordTxtbx_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -53,6 +55,10 @@ namespace PA.UI
 
         private void LoginTxtbx_TextChanged(object sender, TextChangedEventArgs e)
         {
+            foreach (Window window in OwnedWindows)
+            {
+                window.Title = "! Login changed in main window. Please wait...";
+            }
             password.ClearEdit();
             PasswordTxtbx.Clear();
         }
@@ -60,21 +66,15 @@ namespace PA.UI
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
             string login = LoginTxtbx.Text;
-            user.SaveOrUpdate(new User(login, password.Password));
+            user = new UserBL(login, password.Password);
+            user.SaveOrUpdate();
             password.ClearEdit();
-            try
+            PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
+            PasswordTxtbx.Clear();
+            PasswordTxtbx.TextChanged += PasswordTxtbx_TextChanged;
+            foreach (Window window in OwnedWindows)
             {
-                PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
-                PasswordTxtbx.Clear();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                PasswordTxtbx.TextChanged += PasswordTxtbx_TextChanged;
+                window.Title = "Enter password";
             }
         }
     }

@@ -8,15 +8,20 @@ namespace PA.Model
 {
     public class Password
     { 
+        
+        public event EventHandler MyEvent;
         private List<PasswordPart> PasswordParts { get; set; }
-        public int maxSize { get;private set; }
+        private static int maxSize { get; set; }
 
         public Password()
         {
-            maxSize = 1;
             PasswordParts = new List<PasswordPart>();
         }
 
+         static Password()
+        {
+            maxSize = 100;
+        }
 
         public void AddPart(PasswordPart pPart)
         {
@@ -26,5 +31,17 @@ namespace PA.Model
             }
             PasswordParts.Add(pPart);
         }
+
+        public static bool operator ==(Password a, Password b)
+        {
+
+            return a.PasswordParts.SequenceEqual(b.PasswordParts);
+        }
+
+        public static bool operator !=(Password a, Password b)
+        {
+            return !(a == b);
+        }
+
     }
 }
