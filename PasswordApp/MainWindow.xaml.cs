@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PA.BLL;
+using PA.Model;
 
 namespace PA.UI
 {
@@ -22,11 +23,12 @@ namespace PA.UI
     public partial class MainWindow : Window
     {
         private PasswordBL password;
-        public UserBL user;
+        public UserService user;
         public MainWindow()
         {
             InitializeComponent();
             password = new PasswordBL();
+            user = new UserService();
         }
 
 
@@ -39,8 +41,14 @@ namespace PA.UI
 
         private void PasswordTxtbx_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PasswordPartBL pPart = new  PasswordPartBL(PasswordTxtbx.Text);
-            password.Add(pPart);
+            try
+            {
+                password.Add(PasswordTxtbx.Text);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + " Password recording finished.");
+            }
         }
 
         private void LoginTxtbx_TextChanged(object sender, TextChangedEventArgs e)
@@ -51,9 +59,23 @@ namespace PA.UI
 
         private void OkBtn_Click(object sender, RoutedEventArgs e)
         {
-            
-            user = new UserBL(LoginTxtbx.Text, password);
-            user.SaveOrUpdate();
+            string login = LoginTxtbx.Text;
+            user.SaveOrUpdate(new User(login, password.Password));
+            password.ClearEdit();
+            try
+            {
+                PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
+                PasswordTxtbx.Clear();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                PasswordTxtbx.TextChanged += PasswordTxtbx_TextChanged;
+            }
         }
     }
 }

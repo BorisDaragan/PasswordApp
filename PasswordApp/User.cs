@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PA.BO
+namespace PA.Model
 {
     public class User
     {
-        public string Name { get; set; }
+        public string Login { get; set; }
+        public Password Password { get; set; }
 
-        public User(string name)
+        public User(string login, Password password)
         {
-            Name = name;
+            Login = login;
+            Password = password;
         }
     }
 }

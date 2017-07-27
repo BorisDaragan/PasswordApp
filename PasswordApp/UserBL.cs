@@ -3,31 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PA.BO;
+using PA.Model;
 using PA.DAL;
 
 namespace PA.BLL
 {
-    public class UserBL
+    public class UserService
     {
-        private User user;
-        private Password password;
-        private static UserRepo userRepo;
+        public string Login { get; set; }
+        private PasswordBL _password;
+        private static UserRepo _userRepo;
+        public Password Password { get; set; }
 
-        public UserBL(string login, PasswordBL password)
+        public UserService()
         {
-            this.user  = new User(login);
-            this.password = new Password(password.PasswordParts);
+            
         }
 
-        static UserBL()
+        public UserService(string login, PasswordBL password)
         {
-            userRepo = new UserRepo();
+            this.Login  = login;
+            this._password = password;
         }
 
-        public void SaveOrUpdate()
+        static UserService()
         {
-            userRepo.SaveOrUpdatePassword(user, password);
+            _userRepo = new UserRepo();
         }
+
+        public void SaveOrUpdate(User user)
+        {
+            _userRepo.SaveOrUpdatePassword(user);
+        }
+
     }
 }

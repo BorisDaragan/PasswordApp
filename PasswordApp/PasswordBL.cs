@@ -3,37 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using   PA.BO;
+using   PA.Model;
 
 namespace PA.BLL
 {
     public class PasswordBL
     {
-        public List<PasswordPart> PasswordParts { get; private set; }
+        public Password Password { get; set; }
+
 
         public PasswordBL()
         {
-            PasswordParts = new List<PasswordPart>();
+            Password = new Password();
         }
 
-        public void Add(PasswordPart pPart)
+        public void Add(string passText)
         {
-            PasswordParts.Add(pPart);
-        }
-        public void Add(PasswordPartBL pPart)
-        {
-            PasswordParts.Add(pPart.PasswordPart);
+            Password.AddPart(new PasswordPart(passText, DateTime.Now));
         }
 
 
-        public void Compare()
-        {
-            
-        }
+
 
         public void ClearEdit()
         {
-            PasswordParts = new List<PasswordPart>();
+            Password = new Password();
         }
+
     }
 }

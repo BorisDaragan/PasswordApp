@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PA.BO
+namespace PA.Model
 {
     public class PasswordPart
     {
         public StringBuilder Text { get; set; }
         public DateTime Time { get; set; }
 
-        public PasswordPart(StringBuilder text, DateTime time)
+        public PasswordPart(string text, DateTime time)
         {
-            Text = text;
+            Text = new StringBuilder(text);
             Time = time;
         }
     }

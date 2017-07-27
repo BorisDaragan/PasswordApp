@@ -4,33 +4,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PA.BO;
+using PA.Model;
 
 namespace PA.DAL
 {
     public class UserRepo
     {
-        private static ConcurrentDictionary<User, Password> users;
+        private static ConcurrentDictionary<string, Password> users;
 
         static UserRepo()
         {
-            users = new ConcurrentDictionary<User, Password>();
+            users = new ConcurrentDictionary<string, Password>();
         }
 
-        public void SaveOrUpdatePassword(User user, Password password)
+        public void SaveOrUpdatePassword(User user )
         {
-            users.AddOrUpdate(user, password, (key, existingPassword) =>
+            users.AddOrUpdate(user.Login, user.Password, (key, existingPassword) =>
                 {
-                    // If this delegate is invoked, then the key already exists.
-                    existingPassword  = password;
+                    existingPassword  = user.Password;
                     return existingPassword;
                 });
         }
 
-        public Password GetPassword(User user)
+        public Password GetPassword(string login)
         {
             Password password = new Password();
-            bool exist = users.TryGetValue(user, out password);
+            bool exist = users.TryGetValue(login, out password);
 
             if (exist)
             {
