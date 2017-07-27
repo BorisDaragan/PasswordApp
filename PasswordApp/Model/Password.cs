@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PA.Model
 {
@@ -27,6 +24,15 @@ namespace PA.Model
             if (PasswordParts.Count == maxSize)
             {
                 throw new ArgumentException("Maximum password length reached.");
+            }
+            if (PasswordParts.Count == 0)
+            {
+                startRecordingPassword = DateTime.Now;
+                pPart.ActionTime = TimeSpan.Zero;
+            }
+            else
+            {
+                pPart.ActionTime = DateTime.Now - startRecordingPassword;
             }
             PasswordParts.Add(pPart);
         }

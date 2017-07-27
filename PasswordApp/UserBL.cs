@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using PA.Model;
 using PA.DAL;
 
@@ -39,7 +35,7 @@ namespace PA.BLL
 
         internal bool CheckPassword(Password password)
         {
-            if (this.Password == password)
+            if (_userRepo.GetPassword(this.Login) == password)
             {
                 return true;
             }

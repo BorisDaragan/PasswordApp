@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using   PA.Model;
 
 namespace PA.BLL
@@ -18,7 +14,7 @@ namespace PA.BLL
 
         public void Add(string passText)
         {
-            Password.AddPart(new PasswordPart(passText, DateTime.Now));
+            Password.AddPart(new PasswordPart(passText));
         }
 
         public void ClearEdit()
