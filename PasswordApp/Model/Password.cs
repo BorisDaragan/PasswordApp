@@ -6,7 +6,7 @@ namespace PA.Model
     public class Password
     {
         private DateTime startRecordingPassword;
-        private List<PasswordPart> PasswordParts { get; set; }
+        public List<PasswordPart> PasswordParts { get; private set; }
         private static int maxSize { get; set; }
 
         public Password()

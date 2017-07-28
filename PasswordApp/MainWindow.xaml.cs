@@ -59,7 +59,6 @@ namespace PA.UI
         {
             string login = LoginTxtbx.Text;
             user = new UserBL(login, password.Password);
-            user.SaveOrUpdate();
             password.ClearEdit();
             PasswordTxtbx.TextChanged -= PasswordTxtbx_TextChanged;
             PasswordTxtbx.Clear();

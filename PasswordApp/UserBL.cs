@@ -1,6 +1,5 @@
 ﻿
 using PA.Model;
-using PA.DAL;
 
 namespace PA.BLL
 {
@@ -8,7 +7,6 @@ namespace PA.BLL
     {
         public string Login { get; set; }
         private PasswordBL _password;
-        private static UserRepo _userRepo;
         public Password Password { get; set; }
 
         public UserBL()
@@ -21,21 +19,11 @@ namespace PA.BLL
             this.Login  = login;
             this.Password = password;
         }
-
-        static UserBL()
+        
+        
+        public bool CheckPassword(Password password)
         {
-            _userRepo = new UserRepo();
-        }
-
-        public void SaveOrUpdate( )
-        {
-            _userRepo.SaveOrUpdatePassword(new User(this.Login, this.Password));
-        }
-
-
-        internal bool CheckPassword(Password password)
-        {
-            if (_userRepo.GetPassword(this.Login) == password)
+            if( this.Password == password)
             {
                 return true;
             }
@@ -44,5 +32,6 @@ namespace PA.BLL
                 return false;
             }
         }
+        
     }
 }

@@ -37,7 +37,7 @@ namespace PA.UI
             var mainWindow = this.Owner as MainWindow;
             if (mainWindow != null)
             {
-               user.Login =  mainWindow.user.Login;
+               user =  mainWindow.user;
             }
             if (user.CheckPassword(password.Password))
             {
